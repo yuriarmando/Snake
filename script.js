@@ -1,4 +1,3 @@
-
 //funzione all'avvio
 const DIM = 20; // costante dimensione campo
 var campo = new Array(DIM);//vettore campo da gioco
@@ -15,12 +14,21 @@ var nCibo;//quanto cibo è stato mangiato
 /* POSIZIONE SNAKE */
 var posSn x = 1; // coordinata x snake
 var posSn y = 1; //coordinate y snake
-var coda= new Array(0);// array contenente le posizioni della coda 
+var coda= new Array(0);// array contenente le posizioni della coda
 
 function avvia(){
     initMatrice();
     //disegnaMatrice()
     disegnaCampo();
+
+
+    // coda
+
+    coda.push(posSn_x + ";"+ posSn_y);
+
+    document.getElementById("btn_" + posSn_x + "_" + posSn_y).style.backgroundColor = Blu;
+    moveSnake();
+
 }
 function initMatrice(){
     for(var i = 0; i<DIM; i++){
@@ -32,34 +40,60 @@ function initMatrice(){
             }
         }
 function disegnaCampo(){
-    var body = document.body,
-    tbl  = document.createElement('table');
-    tbl.style.width='100px';
-    tbl.style.border = "2px solid black";
-   
-    for(var i = 0; i < 5; i++){
-       var tr = tbl.insertRow();
-       for(var j = 0; j < 4; j++){
-           if(i==2 && j==1){
-               break
-           } else {
-               var td = tr.insertCell();
-               td.appendChild(document.createTextNode('Cell'))
-               td.style.border = "2px solid black";
-               if(i==1&&j==1){
-                   td.setAttribute('rowSpan','2');
-               }
-           }
-       }
-     }
-      body.appendChild(tbl);
-    }
-   tableCreate();
-    
-    
+    var refBody = document.getElementsByTagName("body")[0];
+    var tabella = document.createElement("table");
+    var riga, cella, btn;
+    refBody.appendChild(tabella);
+        for(int i=0; i< DIM; i++){
+            riga = document.createElement("tr");
+            tabella.appendChild(riga);
+            for(int i=0; j< DIM; j++){
+                //crea cella
+                cella = document.createElement("td");
+                cella.style.width = "18px";
+                riga.appendChild(cella);
+
+                //Pulsanti
+                btn = document.createElement("input");
+                btn.type = "button";
+                btn.id = "btn" + i + "-" + j;
+                btn.style.width = "18px";
+                btn.style.height = "15px";
+                btn.style.backgroundColor = GRIGIO;
+                btn.style.color = BIANCO;
+
+                btn.setAttribute("Onclick", "get_coord(this)");
+            }
+
+        }
+}
+
+function visualizza(btn){
+
 
 }
-var refBody = document.getElementsByTagName("body")[0];
-var tabella = document.createElement("table");
-var, riga, cella, btn;
-refBody.appendChild(tabella);
+
+function get_coord(btn){
+        // btn_1_4 --> x:1| y: 4
+        var vect = btn.id.split("_");
+        alert();
+
+}
+
+function cambiaDirezione(event){
+    var codice = event.keyCode;
+    if(codice == 37){
+        direzione = "sx";
+    }
+    if(codice == 38){
+        direzione = "up";
+    }
+    if(codice == 39){
+        direzione = "dx";
+    }
+    if(codice == 40){
+        direzione = "dw";
+    }
+
+
+}
